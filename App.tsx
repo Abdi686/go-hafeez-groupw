@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, Menu, X, CheckCircle, Clock, Tag, ChevronLeft } from "lucide-react";
-import brandLogos from "../imports/Brand_Logos.png";
+import brandLogos from "./Brand_Logos.png";
 import { blogs, type Blog } from "./blogs";
 
 type ServiceType = "ride" | "cater" | "consult";
@@ -228,7 +228,6 @@ export default function App() {
       {/* ── ABOUT PAGE ── */}
       {page === "about" && (
         <main>
-          {/* About Hero */}
           <section className="relative overflow-hidden py-24 px-6" style={{ background: DARK }}>
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(circle at 20% 50%, ${ORANGE} 0%, transparent 60%), radial-gradient(circle at 80% 20%, ${TEAL} 0%, transparent 50%)` }} />
             <div className="max-w-4xl mx-auto relative z-10">
@@ -243,7 +242,6 @@ export default function App() {
             </div>
           </section>
 
-          {/* Founder quote */}
           <section className="border-b border-border py-16 px-6 bg-card">
             <div className="max-w-3xl mx-auto flex gap-8 items-start">
               <div className="hidden sm:block flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center text-white font-black text-2xl" style={{ background: ORANGE }}>H</div>
@@ -256,7 +254,6 @@ export default function App() {
             </div>
           </section>
 
-          {/* Timeline */}
           <section className="py-24 px-6 bg-background">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-20">
@@ -264,75 +261,28 @@ export default function App() {
                 <h2 className="text-4xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>The story behind the group</h2>
                 <p className="text-sm text-muted-foreground mt-3 max-w-lg mx-auto">From a first shift behind a counter to a fleet of coaches and four warehouse kitchens. No shortcuts. No investors. Just graft.</p>
               </div>
-
-              {/* Timeline spine */}
               <div className="relative">
-                {/* Centre line */}
                 <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 hidden md:block" style={{ background: `linear-gradient(to bottom, ${ORANGE}, ${TEAL}, ${ORANGE})` }} />
-
                 <div className="space-y-16">
                   {timeline.map((ev, i) => (
                     <div key={i} className={`relative flex flex-col md:flex-row gap-8 md:gap-0 ${ev.side === "right" ? "md:flex-row" : "md:flex-row-reverse"}`}>
-                      {/* Content card */}
                       <div className={`md:w-[calc(50%-2.5rem)] ${ev.side === "right" ? "md:pr-10" : "md:pl-10"}`}>
-                        <div
-                          className="rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow group"
-                          style={ev.color === STORM
-                            ? { background: STORM, border: `1px solid rgba(240,115,34,0.25)` }
-                            : { background: "var(--card)", border: "1px solid var(--border)" }
-                          }
-                        >
-                          {ev.era && (
-                            <span className="text-[10px] font-bold uppercase tracking-widest mb-3 block" style={{ color: ev.color === STORM ? "#F07322" : ev.color }}>
-                              {ev.era}
-                            </span>
-                          )}
-                          <h3
-                            className="text-lg font-bold mb-3 leading-snug"
-                            style={{ fontFamily: "'Fraunces', serif", color: ev.color === STORM ? "#fff" : "var(--foreground)" }}
-                          >
-                            {ev.title}
-                          </h3>
-                          <p
-                            className="text-sm leading-relaxed mb-4"
-                            style={{ color: ev.color === STORM ? "rgba(255,255,255,0.55)" : "var(--muted-foreground)" }}
-                          >
-                            {ev.body}
-                          </p>
+                        <div className="rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow group" style={ev.color === STORM ? { background: STORM, border: `1px solid rgba(240,115,34,0.25)` } : { background: "var(--card)", border: "1px solid var(--border)" }}>
+                          {ev.era && <span className="text-[10px] font-bold uppercase tracking-widest mb-3 block" style={{ color: ev.color === STORM ? "#F07322" : ev.color }}>{ev.era}</span>}
+                          <h3 className="text-lg font-bold mb-3 leading-snug" style={{ fontFamily: "'Fraunces', serif", color: ev.color === STORM ? "#fff" : "var(--foreground)" }}>{ev.title}</h3>
+                          <p className="text-sm leading-relaxed mb-4" style={{ color: ev.color === STORM ? "rgba(255,255,255,0.55)" : "var(--muted-foreground)" }}>{ev.body}</p>
                           {ev.tags && (
                             <div className="flex flex-wrap gap-2">
                               {ev.tags.map((t) => (
-                                <span
-                                  key={t}
-                                  className="text-[10px] font-semibold px-2.5 py-1 rounded-full border"
-                                  style={ev.color === STORM
-                                    ? { color: ORANGE, borderColor: `${ORANGE}40`, background: `${ORANGE}12` }
-                                    : { color: ev.color, borderColor: `${ev.color}30`, background: `${ev.color}0f` }
-                                  }
-                                >
-                                  {t}
-                                </span>
+                                <span key={t} className="text-[10px] font-semibold px-2.5 py-1 rounded-full border" style={ev.color === STORM ? { color: ORANGE, borderColor: `${ORANGE}40`, background: `${ORANGE}12` } : { color: ev.color, borderColor: `${ev.color}30`, background: `${ev.color}0f` }}>{t}</span>
                               ))}
                             </div>
                           )}
                         </div>
                       </div>
-
-                      {/* Year badge — centred on spine */}
                       <div className="md:absolute md:left-1/2 md:-translate-x-1/2 md:top-6 flex-shrink-0 self-start md:self-auto">
-                        <div
-                          className="flex items-center justify-center w-20 h-20 rounded-full border-4 shadow-lg font-black text-sm text-center leading-tight"
-                          style={{
-                            background: ev.color === STORM ? STORM : ev.color,
-                            borderColor: ev.color === STORM ? ORANGE : "var(--background)",
-                            color: ev.color === STORM ? ORANGE : "#fff",
-                          }}
-                        >
-                          {ev.year}
-                        </div>
+                        <div className="flex items-center justify-center w-20 h-20 rounded-full border-4 shadow-lg font-black text-sm text-center leading-tight" style={{ background: ev.color === STORM ? STORM : ev.color, borderColor: ev.color === STORM ? ORANGE : "var(--background)", color: ev.color === STORM ? ORANGE : "#fff" }}>{ev.year}</div>
                       </div>
-
-                      {/* Empty opposite side spacer */}
                       <div className="hidden md:block md:w-[calc(50%-2.5rem)]" />
                     </div>
                   ))}
@@ -341,16 +291,13 @@ export default function App() {
             </div>
           </section>
 
-          {/* Brand lineage chart */}
           <section className="border-t border-border py-20 px-6 bg-secondary">
             <div className="max-w-5xl mx-auto">
               <div className="mb-12 text-center">
                 <span className="text-xs font-semibold uppercase tracking-widest block mb-3" style={{ color: ORANGE }}>Brand lineage</span>
                 <h2 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>How the names evolved</h2>
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Catering lineage */}
                 <div className="bg-card rounded-2xl border border-border p-7 space-y-5">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="w-3 h-3 rounded-full" style={{ background: TEAL }} />
@@ -373,8 +320,6 @@ export default function App() {
                     </div>
                   ))}
                 </div>
-
-                {/* Transport lineage */}
                 <div className="bg-card rounded-2xl border border-border p-7 space-y-5">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="w-3 h-3 rounded-full" style={{ background: ORANGE }} />
@@ -401,15 +346,10 @@ export default function App() {
             </div>
           </section>
 
-          {/* CTA */}
           <section className="py-20 px-6 text-center" style={{ background: DARK }}>
             <div className="max-w-xl mx-auto">
-              <h2 className="text-3xl font-bold text-white mb-4" style={{ fontFamily: "'Fraunces', serif" }}>
-                The story is still being written.
-              </h2>
-              <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>
-                More warehouses. More kitchens. More routes. From a car park in Lichfield to wherever your operation is — if you want what Go Hafeez Group builds, the conversation starts here.
-              </p>
+              <h2 className="text-3xl font-bold text-white mb-4" style={{ fontFamily: "'Fraunces', serif" }}>The story is still being written.</h2>
+              <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>More warehouses. More kitchens. More routes. From a car park in Lichfield to wherever your operation is — if you want what Go Hafeez Group builds, the conversation starts here.</p>
               <button onClick={() => navigate("home")} className="inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity text-sm" style={{ background: ORANGE }}>
                 Back to services <ArrowRight className="w-4 h-4" />
               </button>
@@ -421,7 +361,6 @@ export default function App() {
       {/* ── HOME PAGE ── */}
       {page === "home" && (
         <main>
-          {/* Hero */}
           <section className="max-w-6xl mx-auto px-6 pt-20 pb-24">
             <div className="max-w-3xl">
               <span className="inline-block text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: TEAL }}>UK Enterprise Logistics</span>
@@ -442,8 +381,6 @@ export default function App() {
                 </button>
               </div>
             </div>
-
-            {/* Hero image strip */}
             <div className="mt-16 grid grid-cols-3 gap-3">
               {[
                 { src: "https://images.unsplash.com/photo-1535655685871-dc8158ff167e?w=600&h=400&fit=crop&auto=format", alt: "Go Ride shuttle van", label: "GO RIDE", sub: "Transit" },
@@ -460,8 +397,6 @@ export default function App() {
                 </div>
               ))}
             </div>
-
-            {/* Stat strip */}
             <div className="mt-6 grid grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden">
               {[
                 { value: "30", label: "Minibuses on route" },
@@ -476,27 +411,23 @@ export default function App() {
             </div>
           </section>
 
-          {/* Services */}
           <section id="services" className="bg-secondary border-y border-border py-20">
             <div className="max-w-6xl mx-auto px-6">
               <div className="mb-12">
                 <span className="text-xs font-semibold uppercase tracking-widest block mb-3" style={{ color: TEAL }}>Our entities</span>
                 <h2 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>What we do</h2>
               </div>
-
               <div className="flex flex-wrap gap-2 mb-10">
                 {(["ride", "cater", "consult"] as ServiceType[]).map((key) => {
                   const labels = { ride: "Go Ride", cater: "Go Cater", consult: "Go Consult" };
                   const isActive = active === key;
                   return (
-                    <button key={key} onClick={() => setActive(key)} className="px-5 py-2 rounded-full text-sm font-semibold transition-all border"
-                      style={isActive ? { background: ORANGE, color: "#fff", borderColor: ORANGE } : { background: "#fff", color: "#6b7280", borderColor: "rgba(0,0,0,0.09)" }}>
+                    <button key={key} onClick={() => setActive(key)} className="px-5 py-2 rounded-full text-sm font-semibold transition-all border" style={isActive ? { background: ORANGE, color: "#fff", borderColor: ORANGE } : { background: "#fff", color: "#6b7280", borderColor: "rgba(0,0,0,0.09)" }}>
                       {labels[key]}
                     </button>
                   );
                 })}
               </div>
-
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
                 <div className="lg:col-span-3 space-y-4">
                   <div className="relative rounded-2xl overflow-hidden h-56 bg-stone-200">
@@ -505,15 +436,12 @@ export default function App() {
                     <div className="absolute bottom-4 left-4 flex items-center gap-2">
                       <div className="w-7 h-7 rounded-md flex items-center justify-center text-white font-black text-xs" style={{ background: svc.color }}>H</div>
                       <div>
-                        <span className="text-white font-black text-sm tracking-tight leading-none block">
-                          {active === "ride" ? "GO RIDE" : active === "cater" ? "GO CATER" : "GO CONSULT"}
-                        </span>
+                        <span className="text-white font-black text-sm tracking-tight leading-none block">{active === "ride" ? "GO RIDE" : active === "cater" ? "GO CATER" : "GO CONSULT"}</span>
                         <span className="text-white/60 text-[9px] uppercase tracking-widest">{svc.tag}</span>
                       </div>
                     </div>
                     <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1 text-white text-[10px] font-semibold">{svc.badge}</div>
                   </div>
-
                   <div className="bg-card rounded-2xl border border-border p-8 space-y-5">
                     <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: svc.color }}>{svc.tag}</span>
                     <h3 className="text-2xl font-bold text-foreground leading-snug" style={{ fontFamily: "'Fraunces', serif" }}>{svc.headline}</h3>
@@ -528,7 +456,6 @@ export default function App() {
                     </ul>
                   </div>
                 </div>
-
                 <div className="lg:col-span-2 flex flex-col gap-4">
                   <div className="rounded-2xl p-8 text-white flex-1 flex flex-col justify-between" style={{ background: svc.color }}>
                     <p className="text-sm font-medium text-white/70">{svc.statLabel}</p>
@@ -547,7 +474,6 @@ export default function App() {
             </div>
           </section>
 
-          {/* Go Cater Display Board */}
           <section id="gocater" className="py-20">
             <div className="max-w-6xl mx-auto px-6">
               <div className="mb-10">
@@ -555,7 +481,6 @@ export default function App() {
                 <h2 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>Go Cater — {"Today's Menu"}</h2>
                 <p className="text-sm text-muted-foreground mt-2">Hot, fresh, allergen-labelled. Scaled to your shift headcount every day.</p>
               </div>
-
               <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ background: DARK }}>
                 <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
                   <div className="flex items-center gap-3">
@@ -571,7 +496,6 @@ export default function App() {
                     <span className="text-xs font-semibold" style={{ color: ORANGE }}>Live Menu</span>
                   </div>
                 </div>
-
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-px" style={{ background: "rgba(255,255,255,0.06)" }}>
                   {menuItems.map((item) => (
                     <div key={item.name} className="relative overflow-hidden" style={{ background: DARK }}>
@@ -587,7 +511,6 @@ export default function App() {
                     </div>
                   ))}
                 </div>
-
                 <div className="px-6 py-3 flex items-center justify-between" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                   <span className="text-[10px] text-white/30 uppercase tracking-widest">Portions scaled to shift manifest · HACCP verified · Hot hold ≥ 63°C</span>
                   <span className="text-[10px] font-semibold" style={{ color: TEAL }}>gohafeezgroup.co.uk</span>
@@ -596,7 +519,6 @@ export default function App() {
             </div>
           </section>
 
-          {/* Compliance */}
           <section id="compliance" className="bg-secondary border-y border-border py-20">
             <div className="max-w-6xl mx-auto px-6">
               <div className="mb-12">
@@ -619,7 +541,6 @@ export default function App() {
             </div>
           </section>
 
-          {/* Contact */}
           <section id="contact" className="py-20">
             <div className="max-w-2xl mx-auto px-6">
               <div className="mb-10 text-center">
@@ -679,10 +600,8 @@ export default function App() {
               </p>
             </div>
           </section>
-
           <section className="py-16 px-6 bg-background">
             <div className="max-w-6xl mx-auto">
-              {/* Featured post */}
               <div className="mb-12">
                 <button onClick={() => openPost(blogs[0])} className="group w-full text-left">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-border hover:shadow-lg transition-shadow">
@@ -693,14 +612,10 @@ export default function App() {
                     <div className="bg-card p-8 lg:p-10 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center gap-3 mb-4">
-                          <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white" style={{ background: categoryColors[blogs[0].category] ?? ORANGE }}>
-                            {blogs[0].category}
-                          </span>
+                          <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white" style={{ background: categoryColors[blogs[0].category] ?? ORANGE }}>{blogs[0].category}</span>
                           <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="w-3 h-3" />{blogs[0].readTime}</span>
                         </div>
-                        <h2 className="text-2xl font-bold text-foreground mb-3 leading-snug group-hover:text-primary transition-colors" style={{ fontFamily: "'Fraunces', serif" }}>
-                          {blogs[0].title}
-                        </h2>
+                        <h2 className="text-2xl font-bold text-foreground mb-3 leading-snug group-hover:text-primary transition-colors" style={{ fontFamily: "'Fraunces', serif" }}>{blogs[0].title}</h2>
                         <p className="text-sm text-muted-foreground leading-relaxed">{blogs[0].excerpt}</p>
                       </div>
                       <div className="flex items-center gap-2 mt-6 text-sm font-semibold" style={{ color: ORANGE }}>
@@ -710,28 +625,20 @@ export default function App() {
                   </div>
                 </button>
               </div>
-
-              {/* Blog grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {blogs.slice(1).map((blog) => (
                   <button key={blog.slug} onClick={() => openPost(blog)} className="group text-left bg-card border border-border rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
                     <div className="relative h-44 bg-stone-200">
                       <img src={blog.hero} alt={blog.heroAlt} className="w-full h-full object-cover" />
                       <div className="absolute top-3 left-3">
-                        <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full text-white" style={{ background: categoryColors[blog.category] ?? ORANGE }}>
-                          {blog.category}
-                        </span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full text-white" style={{ background: categoryColors[blog.category] ?? ORANGE }}>{blog.category}</span>
                       </div>
                     </div>
                     <div className="p-5">
                       <div className="flex items-center gap-2 text-[11px] text-muted-foreground mb-2">
-                        <Clock className="w-3 h-3" />{blog.readTime}
-                        <span className="mx-1">·</span>
-                        {blog.date}
+                        <Clock className="w-3 h-3" />{blog.readTime}<span className="mx-1">·</span>{blog.date}
                       </div>
-                      <h3 className="font-bold text-foreground leading-snug text-sm group-hover:text-primary transition-colors mb-2" style={{ fontFamily: "'Fraunces', serif" }}>
-                        {blog.title}
-                      </h3>
+                      <h3 className="font-bold text-foreground leading-snug text-sm group-hover:text-primary transition-colors mb-2" style={{ fontFamily: "'Fraunces', serif" }}>{blog.title}</h3>
                       <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{blog.excerpt}</p>
                       <div className="flex items-center gap-1 mt-4 text-xs font-semibold" style={{ color: ORANGE }}>
                         Read more <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -748,25 +655,17 @@ export default function App() {
       {/* ── BLOG POST PAGE ── */}
       {page === "post" && currentPost && (
         <main>
-          {/* Hero */}
           <div className="relative h-72 sm:h-96 bg-stone-300 overflow-hidden">
             <img src={currentPost.hero} alt={currentPost.heroAlt} className="w-full h-full object-cover" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)" }} />
             <div className="absolute bottom-8 left-0 right-0 px-6">
               <div className="max-w-3xl mx-auto">
-                <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white mb-4 inline-block" style={{ background: categoryColors[currentPost.category] ?? ORANGE }}>
-                  {currentPost.category}
-                </span>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white leading-snug mt-2" style={{ fontFamily: "'Fraunces', serif" }}>
-                  {currentPost.title}
-                </h1>
+                <span className="text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white mb-4 inline-block" style={{ background: categoryColors[currentPost.category] ?? ORANGE }}>{currentPost.category}</span>
+                <h1 className="text-3xl sm:text-4xl font-bold text-white leading-snug mt-2" style={{ fontFamily: "'Fraunces', serif" }}>{currentPost.title}</h1>
               </div>
             </div>
           </div>
-
-          {/* Article body */}
           <div className="max-w-3xl mx-auto px-6 py-12">
-            {/* Meta */}
             <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground mb-10 pb-6 border-b border-border">
               <button onClick={() => navigate("blog")} className="flex items-center gap-1 font-semibold hover:text-foreground transition-colors" style={{ color: ORANGE }}>
                 <ChevronLeft className="w-3.5 h-3.5" /> Back to Blog
@@ -774,30 +673,17 @@ export default function App() {
               <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{currentPost.readTime}</span>
               <span className="flex items-center gap-1"><Tag className="w-3 h-3" />{currentPost.date}</span>
             </div>
-
-            {/* Lead */}
-            <p className="text-xl text-muted-foreground leading-relaxed mb-10 font-medium" style={{ fontFamily: "'Fraunces', serif" }}>
-              {currentPost.excerpt}
-            </p>
-
-            {/* Sections */}
+            <p className="text-xl text-muted-foreground leading-relaxed mb-10 font-medium" style={{ fontFamily: "'Fraunces', serif" }}>{currentPost.excerpt}</p>
             <div className="space-y-10">
               {currentPost.body.map((section, i) => (
                 <div key={i}>
-                  {section.heading && (
-                    <h2 className="text-2xl font-bold text-foreground mb-4 mt-2" style={{ fontFamily: "'Fraunces', serif" }}>
-                      {section.heading}
-                    </h2>
-                  )}
-                  {section.paragraphs.map((p, j) => (
-                    <p key={j} className="text-base text-foreground leading-[1.8] mb-4">{p}</p>
-                  ))}
+                  {section.heading && <h2 className="text-2xl font-bold text-foreground mb-4 mt-2" style={{ fontFamily: "'Fraunces', serif" }}>{section.heading}</h2>}
+                  {section.paragraphs.map((p, j) => <p key={j} className="text-base text-foreground leading-[1.8] mb-4">{p}</p>)}
                   {section.bullets && (
                     <ul className="space-y-2.5 my-4 pl-1">
                       {section.bullets.map((b, k) => (
                         <li key={k} className="flex items-start gap-3 text-sm text-foreground leading-relaxed">
-                          <span className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" style={{ background: ORANGE }} />
-                          {b}
+                          <span className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" style={{ background: ORANGE }} />{b}
                         </li>
                       ))}
                     </ul>
@@ -805,8 +691,6 @@ export default function App() {
                 </div>
               ))}
             </div>
-
-            {/* CTA banner */}
             <div className="mt-16 rounded-2xl p-8 text-white text-center" style={{ background: DARK }}>
               <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>Go Hafeez Group</p>
               <h3 className="text-2xl font-bold mb-3" style={{ fontFamily: "'Fraunces', serif" }}>Ready to see this in practice?</h3>
@@ -815,8 +699,6 @@ export default function App() {
                 Talk to us <ArrowRight className="w-4 h-4" />
               </button>
             </div>
-
-            {/* More posts */}
             <div className="mt-16">
               <h3 className="text-lg font-bold text-foreground mb-6" style={{ fontFamily: "'Fraunces', serif" }}>More from the blog</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -837,7 +719,6 @@ export default function App() {
         </main>
       )}
 
-      {/* Footer */}
       <footer className="border-t border-border py-8 bg-card">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <img src={brandLogos} alt="Go Hafeez Group" className="h-8 w-auto object-contain object-left" />
@@ -855,7 +736,6 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Success modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-foreground/20 backdrop-blur-sm">
           <div className="bg-card border border-border rounded-2xl p-10 max-w-sm w-full text-center space-y-5 shadow-xl">
@@ -866,12 +746,14 @@ export default function App() {
               <h3 className="text-xl font-bold text-foreground mb-1" style={{ fontFamily: "'Fraunces', serif" }}>Request received</h3>
               <p className="text-sm text-muted-foreground">{"An operations lead will contact you within 24 hours to map out your trial framework."}</p>
             </div>
-            <button onClick={() => setModalOpen(false)} className="w-full text-white font-semibold py-2.5 rounded-lg text-sm transition-opacity hover:opacity-90" style={{ background: ORANGE }}>
-              Done
-            </button>
+            <button onClick={() => setModalOpen(false)} className="w-full text-white font-semibold py-2.5 rounded-lg text-sm transition-opacity hover:opacity-90" style={{ background: ORANGE }}>Done</button>
           </div>
         </div>
       )}
     </div>
   );
 }
+
+
+
+
