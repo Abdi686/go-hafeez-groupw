@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { ArrowRight, Menu, X, CheckCircle, Clock, Tag, ChevronLeft } from "lucide-react";
+import { ArrowRight, Menu, X, CheckCircle, Clock, Tag, ChevronLeft, Instagram, Linkedin } from "lucide-react";
 import brandLogos from "../imports/Brand_Logos.png";
+import menuPoster from "../imports/DHL_Segro_A3_Poster.html?raw";
 import { blogs, type Blog } from "./blogs";
 
 type ServiceType = "ride" | "cater" | "consult";
@@ -47,13 +48,37 @@ const services: Record<ServiceType, {
   },
 };
 
-const menuItems = [
-  { name: "Chicken Biryani", price: "£5.99", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=280&h=220&fit=crop&auto=format" },
-  { name: "Lamb Biryani",    price: "£8.99", img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=280&h=220&fit=crop&auto=format" },
-  { name: "Butter Chicken",  price: "£7.49", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=280&h=220&fit=crop&auto=format" },
-  { name: "Korma Curry",     price: "£6.99", img: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=280&h=220&fit=crop&auto=format" },
-  { name: "Crispy Samosas",  price: "£3.49", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=280&h=220&fit=crop&auto=format" },
-  { name: "Masala Chai",     price: "£2.49", img: "https://images.unsplash.com/photo-1561336526-2914f13ceb36?w=280&h=220&fit=crop&auto=format" },
+const posterMenuImages = typeof window === "undefined"
+  ? []
+  : Array.from(new DOMParser().parseFromString(menuPoster, "text/html").querySelectorAll<HTMLImageElement>(".section-img"))
+      .map((image) => image.src);
+
+const menuSections = [
+  {
+    title: "Crispy samosas & savouries",
+    imageIndex: 0,
+    items: [
+      ["Samosa Chat", "£6.00"], ["Chicken & Lamb Samosa", "£3.50"], ["Samosa (Veg)", "£2.50"],
+      ["Single Meat Samosa", "£1.75"], ["Single Spring Roll / Samosa", "£1.25"], ["Spring Rolls", "£2.50"], ["Bread Pakora", "£2.50"],
+    ],
+  },
+  { title: "Fresh baguettes", items: [["Gourmet Baguettes", "£4.50"]] },
+  {
+    title: "Gourmet burgers",
+    imageIndex: 1,
+    items: [["Double Cheese Burger", "£6.00"], ["Cheese Burger", "£4.00"], ["Chicken Burger", "£4.00"], ["Veg Burger", "£4.00"], ["Burger Meal Option Upgrade", "£2.50"]],
+  },
+  {
+    title: "Wraps & mains",
+    imageIndex: 2,
+    items: [["Chicken / Chilli / Mayo Wrap", "£5.00"], ["Wrap Meal Option Upgrade", "£2.00"], ["Kebab Roll", "£3.00"], ["Chicken Biryani", "£5.00"], ["Chicken Curry", "£4.00"], ["4 Strips Meal", "£6.50"]],
+  },
+  { title: "Special combinations", items: [["Biryani & Samosa Combo", "£7.00"]] },
+  { title: "Sweet treats", items: [["Jelabi (Per Portion)", "£2.25"], ["Muffins / Donuts", "£2.00"], ["Cookies", "£1.50"]] },
+  {
+    title: "Hot & cold beverages",
+    items: [["All Cans", "£1.10"], ["Bottle Drinks", "£1.75"], ["Karak Chai", "£1.75"], ["Barista Coffees", "£2.00"], ["Monsters (All Flavours)", "£2.00"]],
+  },
 ];
 
 type TimelineEvent = {
@@ -552,8 +577,8 @@ export default function App() {
             <div className="max-w-6xl mx-auto px-6">
               <div className="mb-10">
                 <span className="text-xs font-semibold uppercase tracking-widest block mb-3" style={{ color: ORANGE }}>On-site dining</span>
-                <h2 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>Go Cater — {"Today's Menu"}</h2>
-                <p className="text-sm text-muted-foreground mt-2">Hot, fresh, allergen-labelled. Scaled to your shift headcount every day.</p>
+                <h2 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>Go Cater — Warehouse Menu</h2>
+                <p className="text-sm text-muted-foreground mt-2">Available across our warehouse kitchens. Hot, fresh, allergen-labelled food every day.</p>
               </div>
 
               <div className="rounded-3xl overflow-hidden shadow-2xl" style={{ background: DARK }}>
@@ -566,30 +591,34 @@ export default function App() {
                       <span className="text-white/40 text-[9px] uppercase tracking-widest">Staff Dining</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full animate-pulse" style={{ background: ORANGE }} />
-                    <span className="text-xs font-semibold" style={{ color: ORANGE }}>Live Menu</span>
-                  </div>
+                  <span className="text-xs font-semibold" style={{ color: ORANGE }}>All warehouse sites</span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-px" style={{ background: "rgba(255,255,255,0.06)" }}>
-                  {menuItems.map((item) => (
-                    <div key={item.name} className="relative overflow-hidden" style={{ background: DARK }}>
-                      <div className="relative h-36 bg-stone-800">
-                        <img src={item.img} alt={item.name} className="w-full h-full object-cover opacity-90" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                        <div className="absolute top-2 right-2 rounded-md px-2 py-0.5 text-xs font-black text-white" style={{ background: ORANGE }}>{item.price}</div>
-                      </div>
-                      <div className="px-4 py-3">
-                        <p className="text-white text-sm font-semibold leading-snug">{item.name}</p>
-                        <p className="text-[10px] mt-0.5" style={{ color: TEAL }}>Freshly prepared · Allergens listed</p>
+                <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "rgba(255,255,255,0.06)" }}>
+                  {menuSections.map((section) => (
+                    <div key={section.title} className="p-5" style={{ background: DARK }}>
+                      <h3 className="mb-4 border-b border-white/10 pb-2 text-xs font-black uppercase tracking-widest" style={{ color: TEAL }}>{section.title}</h3>
+                      {"imageIndex" in section && posterMenuImages[section.imageIndex] && (
+                        <img
+                          src={posterMenuImages[section.imageIndex]}
+                          alt={section.title}
+                          className="mb-4 h-32 w-full rounded-md border border-white/10 object-cover"
+                        />
+                      )}
+                      <div className="space-y-3">
+                        {section.items.map(([name, price]) => (
+                          <div key={name} className="flex items-baseline justify-between gap-3">
+                            <span className="text-sm font-semibold text-white">{name}</span>
+                            <span className="shrink-0 text-sm font-black" style={{ color: ORANGE }}>{price}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   ))}
                 </div>
 
                 <div className="px-6 py-3 flex items-center justify-between" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                  <span className="text-[10px] text-white/30 uppercase tracking-widest">Portions scaled to shift manifest · HACCP verified · Hot hold ≥ 63°C</span>
+                  <span className="text-[10px] text-white/50 uppercase tracking-widest">Please inform our staff of any allergies before ordering</span>
                   <span className="text-[10px] font-semibold" style={{ color: TEAL }}>gohafeezgroup.co.uk</span>
                 </div>
               </div>
@@ -600,14 +629,16 @@ export default function App() {
           <section id="compliance" className="bg-secondary border-y border-border py-20">
             <div className="max-w-6xl mx-auto px-6">
               <div className="mb-12">
-                <span className="text-xs font-semibold uppercase tracking-widest block mb-3" style={{ color: TEAL }}>Standards</span>
-                <h2 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>Audit-ready by design</h2>
+                <span className="text-xs font-semibold uppercase tracking-widest block mb-3" style={{ color: TEAL }}>Compliance & safety</span>
+                <h2 className="text-3xl font-bold text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>Built around safe, responsible operations.</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">Clear processes. Responsible data handling. A dependable service for warehouse teams.</p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 {[
-                  { title: "DVSA O-Licence", color: ORANGE, body: "All Go Ride vehicles are PMI-tested every six weeks by certified mechanics. Driver hours and tachograph logs are audited continuously." },
-                  { title: "FSA 5-Star EHO", color: TEAL, body: "Go Cater operates twice-daily HACCP logs, hot holds verified ≥ 63°C, cold holds ≤ 4°C, with full 14-allergen separation." },
-                  { title: "Go Consult Certification", color: ORANGE, body: "Every advisory staff member is examined and certified through our internal framework before handling client deployment." },
+                  { title: "🛡️ Certified transport operations", color: ORANGE, body: "Go Ride works to the UK passenger transport requirements that apply to its services carrying workers to and from warehouse roles for hire or reward. Regulatory details are available on request." },
+                  { title: "👥 Driver vetting & safeguarding", color: TEAL, body: "We maintain clear driver onboarding, identification and safeguarding processes designed to support a safe, professional journey for every passenger." },
+                  { title: "💼 Insurance protection", color: ORANGE, body: "Appropriate insurance arrangements are maintained for our transport operations. Insurance documentation can be discussed during the onboarding process." },
+                  { title: "🔒 Data privacy & GDPR", color: TEAL, body: "Passenger information, schedules and routing details are handled with care. We apply data protection practices designed to keep operational information secure." },
                 ].map((c) => (
                   <div key={c.title} className="border border-border rounded-2xl p-7 space-y-3 bg-card hover:shadow-md transition-shadow">
                     <div className="w-8 h-0.5 rounded-full" style={{ background: c.color }} />
@@ -838,19 +869,45 @@ export default function App() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-border py-8 bg-card">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <img src={brandLogos} alt="Go Hafeez Group" className="h-8 w-auto object-contain object-left" />
-          <div className="flex gap-6 text-xs text-muted-foreground">
-            <button onClick={() => navigate("about")} className="hover:text-foreground transition-colors">Our Story</button>
-            <button onClick={() => navigate("blog")} className="hover:text-foreground transition-colors">Blog</button>
-            <a href="#services" onClick={() => page !== "home" && navigate("home")} className="hover:text-foreground transition-colors">Services</a>
-            <a href="#contact" onClick={() => page !== "home" && navigate("home")} className="hover:text-foreground transition-colors">Contact</a>
+      <footer className="border-t border-border bg-card py-10">
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 text-sm text-muted-foreground md:grid-cols-[1.2fr_1fr_1fr]">
+          <div>
+            <img src={brandLogos} alt="Go Hafeez Group" className="mb-4 h-8 w-auto object-contain object-left" />
+            <p className="leading-relaxed">© 2026 Go Hafeez Group. All Rights Reserved.</p>
+            <a href="mailto:info@gohafeezgroup.com" className="mt-3 inline-block font-semibold hover:text-foreground transition-colors" style={{ color: ORANGE }}>info@gohafeezgroup.com</a>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-1 text-xs text-muted-foreground">
-            <a href="mailto:info@gohafeezgroup.com" className="hover:text-foreground transition-colors">info@gohafeezgroup.com</a>
-            <span className="hidden sm:inline">·</span>
-            <span>© 2026 · DVSA & FSA Audited · United Kingdom</span>
+          <div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-foreground">Company information</p>
+            <p className="leading-relaxed">Go Hafeez Group is a trading style of GoRide Transport Limited. Registered in England and Wales. Company number 17150179.</p>
+          </div>
+          <div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-foreground">Legal</p>
+            <p className="leading-relaxed">Transport operations follow applicable UK passenger transport and data protection requirements. Regulatory information is available on request.</p>
+            <div className="mt-4 flex gap-4 text-xs font-semibold">
+              <a href="#privacy-policy" className="hover:text-foreground transition-colors">Privacy Policy</a>
+              <a href="#terms-and-conditions" className="hover:text-foreground transition-colors">Terms &amp; Conditions</a>
+            </div>
+            <div className="mt-5 flex items-center gap-3">
+              <span className="text-xs font-bold uppercase tracking-widest text-foreground">Follow us</span>
+              <a
+                href="https://www.linkedin.com/company/go-hafeez-group/about/?viewAsMember=true"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Follow Go Hafeez Group on LinkedIn"
+                className="rounded-full border border-border p-2 text-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/gohafeezgroup/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Follow Go Hafeez Group on Instagram"
+                className="rounded-full border border-border p-2 text-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
